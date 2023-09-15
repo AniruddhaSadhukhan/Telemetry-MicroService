@@ -1,0 +1,14 @@
+package gqlhandler
+
+import (
+	"go-telemetry-server/config"
+	"net/http"
+)
+
+func GraphiqlHandler(w http.ResponseWriter, r *http.Request) {
+	// Set HSTS header is HTTPS is enabled
+	if config.Store.HTTPSCert.HTTPSEnabled {
+		w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+	}
+	http.ServeFile(w, r, "resources/graphiql.html")
+}

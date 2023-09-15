@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Go Telemetry GraphiQL</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/graphiql@3.0/graphiql.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@graphiql/plugin-explorer@0.3/dist/style.css"
+    />
+    <style>
+      body {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      #graphiql {
+        height: 100vh;
+      }
+
+      .graphiql-container {
+        --font-size-body: 0.9rem !important;
+        --font-size-h4: 1.1rem !important;
+        --font-size-h3: 1.3rem !important;
+        --font-size-h2: 1.5rem !important;
+      }
+
+      .graphiql-explorer-root > div:first-child {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+      }
+
+      .graphiql-explorer-graphql-arguments {
+        font-style: italic;
+      }
+    </style>
+
+    <script
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+      type="application/javascript"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+      type="application/javascript"
+    ></script>
+    <script
+      src="https://unpkg.com/graphiql@3.0/graphiql.min.js"
+      type="application/javascript"
+    ></script>
+    <script
+      src="https://unpkg.com/@graphiql/plugin-explorer@0.3/dist/index.umd.js"
+      type="application/javascript"
+    ></script>
+  </head>
+
+  <body>
+    <div id="graphiql">Loading...</div>
+
+    <script>
+      ReactDOM.render(
+        React.createElement(GraphiQL, {
+          fetcher: GraphiQL.createFetcher({ url: "/telemetry/graphql" }),
+          storage: GraphiQL.createLocalStorage({
+            namespace: "GoTelemetryServer",
+          }),
+          defaultEditorToolsVisibility: "variables",
+          shouldPersistHeaders: true,
+          plugins: [GraphiQLPluginExplorer.explorerPlugin()],
+          defaultHeaders: '{\n "Authorization": "Add your token here"\n}',
+        }),
+        document.getElementById("graphiql")
+      );
+
+      document.querySelector(".graphiql-logo").innerHTML =
+        "Go Telemetry Graph<em>i</em>QL";
+    </script>
+  </body>
+</html>

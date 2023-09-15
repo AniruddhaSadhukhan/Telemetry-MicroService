@@ -1,0 +1,34 @@
+package routes
+
+import (
+	"context"
+	"encoding/json"
+	"go-telemetry-server/logger"
+	"go-telemetry-server/models"
+	"net/http"
+	"strings"
+)
+
+var isDbConnOk = true
+
+func CheckDbConnection() {
+	err := models.PingDatabase(context.TODO())
+	if err != nil {
+		logger.Log.Error(err)
+		if strings.Contains(err.Error(), "auth error") {
+			// If DB creds are rotated while this service is running
+			logger.Log.Warn("MongoDB Auth error, trying to restart")
+			isDbConnOk = false
+		}
+	}
+}
+
+func healthCheckHandler(w http.ResponseWriter, _ *http.Request) {
+	if !isDbConnOk {
+		w.WriteHeader(http.StatusServiceUnavailable)
+	}
+
+	if err := json.NewEncoder(w).Encode(map[string]any{"service": "go-telemetry-server-api", "ok": isDbConnOk}); err != nil {
+		logger.Log.Fatal("encoding failed : %v", err)
+	}
+}

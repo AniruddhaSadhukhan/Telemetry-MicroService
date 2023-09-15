@@ -1,0 +1,31 @@
+[
+  {
+    "createIndexes": "telemetry_events",
+    "indexes": [
+      {
+        "key": {
+          "eventType": 1
+        },
+        "name": "event_type_index"
+      },
+      {
+        "key": {
+          "platform.platformName": 1
+        },
+        "name": "platform_name_index"
+      },
+      {
+        "key": {
+          "user.type": 1
+        },
+        "name": "user_type_index"
+      },
+      {
+        "key": {
+          "device.browser": 1
+        },
+        "name": "browser_index"
+      }
+    ]
+  }
+]

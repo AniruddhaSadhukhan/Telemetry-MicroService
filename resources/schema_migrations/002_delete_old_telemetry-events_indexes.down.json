@@ -1,0 +1,6 @@
+[
+  {
+    "dropIndexes": "telemetry_events",
+    "index": ["delete_2y_old_telemetry_events"]
+  }
+]

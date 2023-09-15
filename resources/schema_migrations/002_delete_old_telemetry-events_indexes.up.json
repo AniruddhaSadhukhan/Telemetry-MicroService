@@ -1,0 +1,14 @@
+[
+  {
+    "createIndexes": "telemetry_events",
+    "indexes": [
+      {
+        "key": {
+          "timeStamp": -1
+        },
+        "name": "delete_2y_old_telemetry_events",
+        "expireAfterSeconds": 63072000
+      }
+    ]
+  }
+]

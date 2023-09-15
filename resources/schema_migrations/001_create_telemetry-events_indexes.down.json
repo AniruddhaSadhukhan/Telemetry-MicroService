@@ -1,0 +1,11 @@
+[
+  {
+    "dropIndexes": "telemetry_events",
+    "index": [
+      "event_type_index",
+      "platform_name_index",
+      "user_type_index",
+      "browser_index"
+    ]
+  }
+]
